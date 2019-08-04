@@ -1,0 +1,1 @@
+SCHOOL_NAME//配置信息学校接口ID值
