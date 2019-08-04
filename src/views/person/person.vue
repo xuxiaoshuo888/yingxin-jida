@@ -48,6 +48,7 @@
                     <el-form-item label="入学年月:">
                         <div class="item-content">{{Info.rxny || '暂无数据'}}</div>
                     </el-form-item>
+
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="辅导员信息" name="2">
@@ -157,6 +158,12 @@
                             <el-radio label="是"></el-radio>
                             <el-radio label="否"></el-radio>
                         </el-radio-group>
+                    </el-form-item>
+                    <el-form-item label="父母及扶养人有无重大问题:">
+                        <el-input type="text" v-model="Info.fmjfyrywzdwt"></el-input>
+                    </el-form-item>
+                    <el-form-item label="特长:">
+                        <el-input type="text" v-model="Info.tc"></el-input>
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
@@ -565,6 +572,8 @@
                 activeName: "1",
                 loop: false, //轮播图是否回环播放
                 Info: {
+                    tc:"",
+                    fmjfyrywzdwt:"",
                     family: [
                         {
                             xm: "",
@@ -789,8 +798,9 @@
                 this.save();
             },
             save() {
+                console.log(this.Info)
                 let data = JSON.stringify(this.Info);
-                // console.log("格式化后的数据", data);
+                console.log("格式化后的数据", data);
                 this.$ajax
                     .post("/student_api/save", {jsonObjectStr: data, finishTag: false})
                     .then(res => {

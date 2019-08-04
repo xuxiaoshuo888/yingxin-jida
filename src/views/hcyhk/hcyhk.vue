@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-form ref="form"  "80px" style="padding: 10px;">
+        <el-form ref="form" style="padding: 10px;">
             <el-form-item label="始发站">
                 <el-select
                         v-model="start_value"

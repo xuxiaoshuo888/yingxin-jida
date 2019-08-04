@@ -41,7 +41,7 @@
         name: "desk",
         data() {
             return {
-                xm:"",
+                xm: "",
                 bg: 'blue',
                 title: '自助迎新',
                 list: [
@@ -101,7 +101,10 @@
                         this.$router.push('/buy');
                         break;
                     case 'hkqy'://户口迁移
-                        this.$router.push({path:'/hkqy',query:{stepId:stepid,planId:this.$store.state.stdInfo.planid}});
+                        this.$router.push({
+                            path: '/hkqy',
+                            query: {stepId: stepid, planId: this.$store.state.stdInfo.planid}
+                        });
                         break;
                 }
             },
@@ -132,6 +135,9 @@
             // this.getStdInfo()
             this.getHj()
             this.getConfig()
+            this.$ajax.get("/student_api/student_detail").then(res => {
+                console.log(res.data.data)
+            });
         }
     }
 </script>
