@@ -3,9 +3,21 @@
         <go-back :title="title" :bg="bg"></go-back>
         <div class="blue-top-bg">
             <div class="band">
-                <div class="title1">当前选择</div>
                 <div class="title2">
-                    <img src="@/assets/img/2.png" alt="">&nbsp;&nbsp;&nbsp;<span>{{room.aptzone}}校区-{{room.apartment}}栋-{{room.floor}}-{{room.bedroom}}室-{{room.bedid}}床</span>
+                    <img src="@/assets/img/2.png" alt="">&nbsp;
+                    &nbsp;<span>考生号：{{room.ksh}}</span>
+                </div>
+                <div class="title2">
+                    <img src="@/assets/img/2.png" alt="">&nbsp;
+                    &nbsp;<span>学号：{{room.xh}}</span>
+                </div>
+                <div class="title2">
+                    <img src="@/assets/img/2.png" alt="">&nbsp;
+                    &nbsp;<span>姓名：{{room.xm}}</span>
+                </div>
+                <div class="title2">
+                    <img src="@/assets/img/2.png" alt="">&nbsp;
+                    &nbsp;<span>住宿信息：{{room.zsxx}}</span>
                 </div>
             </div>
         </div>
@@ -34,7 +46,7 @@
             return {
                 bg: 'blue',
                 title: '选择宿舍',
-                room:'',//当前宿舍信息
+                room:{},//当前宿舍信息
             }
         },
         methods: {

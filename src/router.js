@@ -74,6 +74,16 @@ export default new Router({
             path: '/search',
             name: 'search',
             component: () => import('./views/search/search.vue')
+        },
+        {
+            path: '/buy',
+            name: 'buy',
+            component: () => import('./views/buy/buy.vue')
+        },
+        {
+            path: '/hkqy',
+            name: 'hkqy',
+            component: () => import('./views/hkqy/hkqy.vue')
         }
     ]
 })

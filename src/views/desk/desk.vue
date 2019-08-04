@@ -97,6 +97,12 @@
                     case 'aqjy'://安全教育
                         this.$router.push('/safe');
                         break;
+                    case 'shyp'://生活用品
+                        this.$router.push('/buy');
+                        break;
+                    case 'hkqy'://户口迁移
+                        this.$router.push({path:'/hkqy',query:{stepId:stepid,planId:this.$store.state.stdInfo.planid}});
+                        break;
                 }
             },
             getHj() {//获取环节信息

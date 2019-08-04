@@ -170,8 +170,8 @@ state-icon van-icon van-icon-info {
   padding: 16px;
 
   .fee-item {
-    @include flex(space-between, center);
-    padding: 5px 0;
+    //@include flex(space-between, center);
+    padding: 10px 0;
 
     .fee-title {
       font-size: 14px;
@@ -495,4 +495,7 @@ input {
 }
 .textIndent{
   text-indent: 25px;
+}
+.el-carousel__container{
+  overflow-y: scroll;
 }
