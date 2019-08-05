@@ -1,6 +1,6 @@
 <template>
     <div class="goback-div" :class="bg ? 'bg-blue' : ''">
-        <van-icon name="arrow-left" @click="goBack"/>
+        <div><van-icon v-if="!isDesk" name="arrow-left" @click="goBack"/></div>
         <div>{{title}}</div>
         <span></span>
     </div>
@@ -12,6 +12,7 @@
         props: {
             title: String,
             bg: String,
+            isDesk:Boolean
         },
         methods: {
             goBack() {

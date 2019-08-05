@@ -1,6 +1,6 @@
 <template>
     <div class="blue-top-bg">
-        <go-back :title="title" :bg="bg"></go-back>
+        <go-back :title="title" :bg="bg" :isDesk="isDesk"></go-back>
         <div class="bg-blue-band">
             <div class="info-band">
                 <div class="name-band">
@@ -44,6 +44,7 @@
                 xm: "",
                 bg: 'blue',
                 title: '自助迎新',
+                isDesk: true,
                 list: [
                     // {name: '缴纳学杂费', icon: '@/assets/img/1.png', flag: true, path: '/fees'},
                     // {name: '选宿舍', icon: '@/assets/img/2.png', flag: false, path: '/room'},
@@ -109,10 +110,10 @@
                 }
             },
             getHj() {//获取环节信息
-                // console.log(this.$store.state.stdInfo)
-                this.xm = this.$store.state.stdInfo.xm
-                let planId = this.$store.state.stdInfo.planid
-                let studentId = this.$store.state.stdInfo.studentid
+                console.log(this.$store.state.stdInfo)
+                this.xm = this.$store.getters.stdInfo.xm
+                let planId = this.$store.getters.stdInfo.planid
+                let studentId = this.$store.getters.stdInfo.studentid
                 this.$ajax.get('/plan_step_api/steps', {
                     params: {
                         planId: planId,
@@ -133,11 +134,25 @@
         },
         mounted() {
             // this.getStdInfo()
-            this.getHj()
+            this.$ajax.get('/student_api/student').then(res => {
+                console.log(res)
+                if (res.data.errcode == '0') {//学生身份
+                    // let info = JSON.stringify(res.data.data)
+                    let info = res.data.data
+                    this.$store.commit('setStdInfo', info)
+                    if (res.data.data.readflag === '0') {//未读
+                        this.$router.push('/notice')
+                    } else {//已读
+                        // this.$router.push('/desk')
+                    }
+                } else {//返回信息异常
+                    this.$toast(res.data.errmsg)
+                }
+            }).then(() => {
+                this.getHj()//获取环节信息
+            })
             this.getConfig()
-            this.$ajax.get("/student_api/student_detail").then(res => {
-                console.log(res.data.data)
-            });
+
         }
     }
 </script>

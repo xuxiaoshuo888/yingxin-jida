@@ -2,43 +2,49 @@
     <div class="login-contain">
         <div>
             <div class="logo">
-                <img src="@/assets/img/Logo2.png" style="width: 130px;height: 130px;" alt="">
+                <img src="@/assets/img/jl.jpg" style="width: 130px;height: 130px;" alt="">
                 <p>自助迎新系统</p>
             </div>
-            <div class="info">
-                <div>温馨提示:</div>
-                <div class="textIndent">2019年新生自助迎新时间为8月15日至9月1日，目前系统在维护期，请同学们8月15日以后登录使用！</div>
-            </div>
+
             <div class="pad20">
                 <van-field
                         v-model="username"
                         clearable
-                        label="学号"
-                        placeholder="请输入用户名">
+                        label="用戶："
+                        label-width="50px"
+                        label-align="center"
+                        placeholder="用户名为考生号">
                     <img src="@/assets/img/user.png" slot="button"/>
                 </van-field>
                 <van-field
                         v-model="password"
                         type="password"
-                        label="密码"
-                        placeholder="请输入密码">
+                        label="密码："
+                        label-align="center"
+                        label-width="50px"
+                        placeholder="身份证号后6位，若有“X”，请大写">
                     <img src="@/assets/img/lock.png" slot="button"/>
                 </van-field>
             </div>
         </div>
         <div class="">
             <div class="info">
-                <div>温馨提示</div>
-                <div>1.初始密码为身份证号后6位。</div>
+                <div>温馨提示:</div>
+                <div class="textIndent">
+                    1、用户名为考生号;
+                </div>
+                <div class="textIndent">
+                    2、密码为身份证号后6位，若有"X"，请大写。
+                </div>
             </div>
             <div class="btn-contain">
                 <van-button type="info" size="large" class="button-bg" @click="login">
-                    登录
+                    绑定
                 </van-button>
             </div>
-            <div class="bottom-link">
-                <router-link to="/search">个人住宿查询</router-link>
-            </div>
+            <!--<div class="bottom-link">-->
+            <!--<router-link to="/search">个人住宿查询</router-link>-->
+            <!--</div>-->
         </div>
     </div>
 </template>
@@ -49,6 +55,18 @@
      * @date 2019/5/6
      * @Description: 登录页
      */
+    function getCookie(name) {
+        var cookies = document.cookie;
+        var list = cookies.split("; ");// 解析出名/值对列表
+
+        for (var i = 0; i < list.length; i++) {
+            var arr = list[i].split("=");// 解析出名和值
+            if (arr[0] == name)
+                return decodeURIComponent(arr[1]);// 对cookie值解码
+        }
+        return "";
+    }
+
     export default {
         name: "login",
         data() {
@@ -73,46 +91,19 @@
                     this.$toast("请输入密码")
                     return
                 }
-                this.$ajax.post('/login', {username: this.username, password: this.password}).then(res => {
+                this.$ajax.post('/target/saveBind', {
+                    username: this.username,
+                    password: this.password,
+                    openId: getCookie('WX_OPEN_ID')
+                    // openId: '1111'
+                }).then(res => {
                     console.log(res.data)
-                    if (res.data.errcode == '0') {//继续执行登录流程
+                    //存token，提示已绑定，跳转内容页
+                    if (res.data.errcode == '0') {
+                        this.$store.commit('setToken', res.data.data);
                         this.$toast(res.data.errmsg)
-                        this.$store.commit('setToken', res.data.token)
-                        this.$ajax.get('/student_api/student').then(res => {
-                            console.log(res)
-                            if (res.data.errcode == '0') {//学生身份
-                                // let info = JSON.stringify(res.data.data)
-                                let info = res.data.data
-                                this.$store.commit('setStdInfo', info)
-                                if (res.data.data.readflag === '0') {//未读
-                                    this.$router.push('/notice')
-                                } else {//已读
-                                    this.$router.push('/desk')
-                                }
-                            } else {//返回信息异常
-                                this.$toast(res.data.errmsg)
-                            }
-                        })
-                        // this.$toast(res.data.errmsg);
-                        // res.data.role.roleid=self就是学生，其他的为老师
-                        // 根据角色决定路由跳转，目前暂时不用
-                        // if (res.data.role.roleid) {
-                        //     this.$ajax.post('/set_role', {roleId: res.data.role.roleid}).then(res => {
-                        //         this.$toast(res.data.errmsg)
-                        //     }).catch(err => {
-                        //         this.$toast(err)
-                        //     })
-                        // }
-                        // if (res.data.role.roleid == 'self') {//学生
-                        //     this.$router.push({path: '/basicInfo'})
-                        // } else {//老师
-                        //     this.$router.push({path: "/glstep"})
-                        // }
-                        /*
-                        是否已读迎新须知，来决定页面跳转
-                         */
-                        // this.$router.push('/desk')
-                    } else {//登录失败，提示错误信息
+                        this.$router.push('/desk')
+                    } else {//提示错误信息
                         this.$toast(res.data.errmsg)
                     }
                 }).catch(res => {

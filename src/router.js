@@ -7,6 +7,11 @@ export default new Router({
     routes: [
         {
             path: '/',
+            name: 'bind',
+            component: () => import('./views/bind/bind.vue')
+        },
+        {
+            path: '/login',
             name: 'login',
             component: () => import('./views/login/login.vue')
         },

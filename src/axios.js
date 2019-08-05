@@ -17,7 +17,7 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
-    console.log(config)
+    // console.log(config)
     // if(config.url == 'http://202.114.207.128/yx/api/getStudentRoomInfo'){
     //     config.baseURL = ''
     // }
@@ -34,7 +34,7 @@ instance.interceptors.request.use(function (config) {
     // 判断是否存在token，如果存在将每个页面header都添加token
     if (store.getters.token) {
         config.headers.Authorization = "Bearer " + store.getters.token;
-    }else{
+    } else {
         config.headers.Authorization = "Bearer " + '';
     }
     return config;
@@ -48,11 +48,17 @@ instance.interceptors.response.use(function (res) {
     Toast.clear()
     if (res.data.errcode != '0') {//非正常
         Toast(res.data.errmsg)
-        switch (res.data.errcode) {
-            case '403':
-                router.push('/')
-                break;
-        }
+        router.push('/login')
+        // switch (res.data.errcode) {
+        //     case '403':
+        //         router.push('/login')
+        //         break;
+        //     case '500':
+        //         router.push('/login')
+        //         break;
+        //     default:
+        //         router.push('/login')
+        // }
     }
     return res
 }, function (error) {

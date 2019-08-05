@@ -1,5 +1,6 @@
 <template>
     <div>
+        <go-back :title="title" :bg="bg" :isDesk="isDesk"></go-back>
         <el-form ref="form" style="padding: 10px;">
             <el-form-item label="始发站">
                 <el-select
@@ -38,7 +39,9 @@
         </el-form>
         <div class="info">
             <div>注意事项：</div>
-            <div style="text-indent: 25px;">火车票优惠卡又称火车票学生优惠卡、学生购票优惠卡，是学生购买火车票打折用的卡，贴在学生证的后面。只有买了这个卡才能享受学生优惠。当你寒暑假往返家庭住地与学校区间须乘坐火车的，也可以凭此卡享受优惠。</div>
+            <div style="text-indent: 25px;">
+                火车票优惠卡又称火车票学生优惠卡、学生购票优惠卡，是学生购买火车票打折用的卡，贴在学生证的后面。只有买了这个卡才能享受学生优惠。当你寒暑假往返家庭住地与学校区间须乘坐火车的，也可以凭此卡享受优惠。
+            </div>
         </div>
         <div class="btn-contain">
             <van-button type="info" size="large" class="button-bg" @click="save">
@@ -52,6 +55,8 @@
     /*
     火车优惠卡
      */
+    import goBack from '@/components/goBack'
+
     export default {
         name: "hcyhk",
         data() {
@@ -62,8 +67,11 @@
                 end_value: "",//选定的结束站
                 loading1: false,
                 loading2: false,
+                bg: 'blue',
+                title: '火车优惠卡',
             }
         },
+        components: {goBack},
         methods: {
             getStations(arg) {
                 if (arg.trim() != '') {
@@ -96,7 +104,7 @@
                         this.end = res.data.data
                         this.$toast(res.data.data)
                     })
-                }else{
+                } else {
                     this.$toast('请填写始发站和终点站!')
                 }
             }
