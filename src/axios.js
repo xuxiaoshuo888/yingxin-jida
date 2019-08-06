@@ -34,7 +34,7 @@ instance.interceptors.request.use(function (config) {
     // 判断是否存在token，如果存在将每个页面header都添加token
     if (store.getters.token) {
         config.headers.Authorization = "Bearer " + store.getters.token;
-    } else {
+    } else {//如果没有token，则跳转到绑定页面
         config.headers.Authorization = "Bearer " + '';
     }
     return config;
@@ -47,18 +47,7 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (res) {
     Toast.clear()
     if (res.data.errcode != '0') {//非正常
-        Toast(res.data.errmsg)
-        router.push('/login')
-        // switch (res.data.errcode) {
-        //     case '403':
-        //         router.push('/login')
-        //         break;
-        //     case '500':
-        //         router.push('/login')
-        //         break;
-        //     default:
-        //         router.push('/login')
-        // }
+        Toast(res.data.errmsg)//提示错误信息
     }
     return res
 }, function (error) {

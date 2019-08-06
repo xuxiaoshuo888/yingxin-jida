@@ -24,7 +24,7 @@ module.exports = {
         target: target,
         changeOrigin: true,
         pathRewrite: {
-          '^/proxy': ''
+          '^/proxy': '/wx'
         }
       }
     },

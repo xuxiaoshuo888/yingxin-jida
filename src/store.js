@@ -20,6 +20,7 @@ export default new Vuex.Store({
         },
         setStdInfo(state, data) {
             state.stdInfo = data
+
             Cookies.set('setStdInfo', data)
         }
     },

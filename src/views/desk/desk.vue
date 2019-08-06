@@ -61,11 +61,6 @@
         },
         components: {goBack},
         methods: {
-            getStdInfo() {//获取学生信息
-                this.$ajax.post('/student/find').then(res => {
-                    console.log(res.data)
-                })
-            },
             toDetail(stepid) {//通过stepid进行跳转
                 switch (stepid) {
                     case 'base'://基本信息
@@ -133,7 +128,6 @@
             }
         },
         mounted() {
-            // this.getStdInfo()
             this.$ajax.get('/student_api/student').then(res => {
                 console.log(res)
                 if (res.data.errcode == '0') {//学生身份
