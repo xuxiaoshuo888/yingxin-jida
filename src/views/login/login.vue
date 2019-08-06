@@ -95,7 +95,7 @@
                     username: this.username,
                     password: this.password,
                     openId: getCookie('WX_OPEN_ID')
-                    // openId: '1111'
+                    // openId: '666'
                 }).then(res => {
                     console.log(res.data)
                     //存token，提示已绑定，跳转内容页

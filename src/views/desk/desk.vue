@@ -26,6 +26,11 @@
                 <img v-else-if="index == 8" src="../../assets/img/9.png">
                 <img v-else src="../../assets/img/1.png">
             </div>
+            <!--<div class="btn-contain">-->
+                <!--<van-button type="info" size="large" class="button-bg" @click="unBind">-->
+                    <!--解绑-->
+                <!--</van-button>-->
+            <!--</div>-->
         </div>
     </div>
 </template>
@@ -125,6 +130,18 @@
                     console.log(res.data)
                     this.$toast.clear()
                 })
+            },
+            unBind() {//解绑
+                this.$ajax.get('/target/removeBind', {token: this.$store.getters.token}).then(res => {
+                    console.log(res.data)
+                    if (res.data.errcode == '0') {
+                        //解绑成功，提示信息，跳转到登录页，清除本地的token，studenInfo缓存
+
+                    } else {
+                        //解绑失败，提示解绑失败的信息，
+
+                    }
+                })
             }
         },
         mounted() {
@@ -146,7 +163,6 @@
                 this.getHj()//获取环节信息
             })
             this.getConfig()
-
         }
     }
 </script>

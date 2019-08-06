@@ -2,31 +2,35 @@
     <div>
         <go-back :title="title" :bg="bg"></go-back>
         <div class="blue-top-bg">
-            <div class="band">
+            <div class="band roomdiv">
                 <div class="title2">
                     <img src="@/assets/img/2.png" alt="">&nbsp;
-                    &nbsp;<span>考生号：{{room.ksh}}</span>
+                    &nbsp;<span class="mid-span">考生号：</span>
+                    <span>{{room.ksh}}</span>
                 </div>
                 <div class="title2">
                     <img src="@/assets/img/2.png" alt="">&nbsp;
-                    &nbsp;<span>学号：{{room.xh}}</span>
+                    &nbsp;<span class="mid-span">学号：</span>
+                    <span>{{room.xh}}</span>
                 </div>
                 <div class="title2">
                     <img src="@/assets/img/2.png" alt="">&nbsp;
-                    &nbsp;<span>姓名：{{room.xm}}</span>
+                    &nbsp;<span class="mid-span">姓名：</span>
+                    <span>{{room.xm}}</span>
                 </div>
                 <div class="title2">
                     <img src="@/assets/img/2.png" alt="">&nbsp;
-                    &nbsp;<span>住宿信息：{{room.zsxx}}</span>
+                    &nbsp;<span class="mid-span">住宿信息：</span>
+                    <span>{{room.zsxx}}</span>
                 </div>
             </div>
         </div>
         <!--<div class="fixed-bottom">-->
-            <!--<div class="btn-contain">-->
-                <!--<van-button type="default" plain size="large" @click="toRoomList">-->
-                    <!--重新选择-->
-                <!--</van-button>-->
-            <!--</div>-->
+        <!--<div class="btn-contain">-->
+        <!--<van-button type="default" plain size="large" @click="toRoomList">-->
+        <!--重新选择-->
+        <!--</van-button>-->
+        <!--</div>-->
         <!--</div>-->
     </div>
 </template>
@@ -46,7 +50,7 @@
             return {
                 bg: 'blue',
                 title: '选择宿舍',
-                room:{},//当前宿舍信息
+                room: {},//当前宿舍信息
             }
         },
         methods: {
@@ -92,5 +96,14 @@
         background-color: rgba(255, 255, 255, 1);
         background: url("../../assets/img/bg.png") no-repeat scroll bottom;
         background-size: 100% auto;
+    }
+
+    .mid-span {
+        display: inline-block;
+        width: 100px;
+        text-align-last:justify;
+    }
+    .roomdiv>div{
+        margin-bottom: 10px;
     }
 </style>

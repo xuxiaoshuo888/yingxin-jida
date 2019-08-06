@@ -208,6 +208,7 @@ state-icon van-icon van-icon-info {
   font-weight: 400;
   color: rgba(168, 182, 200, 1);
   padding: 10px 20px 0;
+  line-height: 25px;
 }
 
 .info > div {
@@ -490,12 +491,27 @@ input {
 .el-tabs__content {
   padding-top: 50px;
 }
-.padtop50{
+
+.padtop50 {
   padding-top: 50px;
 }
-.textIndent{
+
+.textIndent {
   text-indent: 25px;
 }
-.el-carousel__container{
+
+.el-carousel__container {
   overflow-y: scroll;
+}
+
+.el-slider__bar {
+  background-color: #06BEBD !important;
+}
+
+.el-slider__button {
+  border: 2px solid #06BEBD !important;
+}
+.el-icon-circle-plus{
+  font-size: 24px !important;
+  vertical-align: middle;
 }

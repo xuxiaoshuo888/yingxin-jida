@@ -20,7 +20,7 @@
         methods: {
             check() {
                 let openId = getCookie('WX_OPEN_ID');
-                // openId = "1111"
+                // openId = "666"
                 //1、从cookie获取openid，2、调接口判断是否已绑定，如已绑定，则拿后台返回的token，如未绑定则跳转到绑定界面
                 this.$ajax.post('/target/checkBind', {openId: openId})
                     .then(res => {
@@ -36,7 +36,6 @@
                         }
                     })
             }
-
         },
         mounted() {
             this.check()

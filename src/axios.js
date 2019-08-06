@@ -10,6 +10,7 @@ const instance = axios.create({
     baseURL: process.env.NODE_ENV === 'production' ? '/wx' : '/proxy',// `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
     timeout: 10000,// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
     headers: {// `headers` 是即将被发送的自定义请求头
+        'Cache-Control': 'no-cache',
         'Content-Type': 'application/x-www-form-urlencoded'
     },
     withCredentials: true,// `withCredentials` 表示跨域请求时是否需要使用凭证

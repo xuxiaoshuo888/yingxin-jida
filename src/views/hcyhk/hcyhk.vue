@@ -25,9 +25,7 @@
                         filterable
                         clearable
                         :loading="loading2"
-                        remote
-                        :remote-method="getStations2"
-                        placeholder="请输入">
+                        placeholder="请选择">
                     <el-option
                             v-for="item in end"
                             :key="item.codeitemid"
@@ -84,16 +82,11 @@
                     })
                 }
             },
-            getStations2(arg) {
-                if (arg.trim() != '') {
-                    this.loading2 = true
-                    this.$ajax.get('/train_card_api/stations', {
-                        params: {name: arg}
-                    }).then(res => {
-                        this.loading2 = false
-                        this.end = res.data.data
-                    })
-                }
+            getStations2() {
+                this.$ajax.get('/arrive_api/stations').then(res => {
+                    this.loading2 = false
+                    this.end = res.data.data
+                })
             },
             save() {
                 if (this.start_value.trim() != '' && this.end_value.trim() != '') {
@@ -102,7 +95,7 @@
                     }).then(res => {
                         this.loading2 = false
                         this.end = res.data.data
-                        this.$toast(res.data.data)
+                        this.$toast(res.data.errmsg)
                     })
                 } else {
                     this.$toast('请填写始发站和终点站!')
@@ -110,7 +103,7 @@
             }
         },
         mounted() {
-            // this.getStations()
+            this.getStations2()
 
         }
     }

@@ -17,20 +17,31 @@
 
             <div class="index-list-div">
                 <div class="left-head">同行人数(不含自己)</div>
-                <div class="right-content">{{fellow}}</div>
+                <div class="right-content">{{fellow}}人</div>
+            </div>
+            <!--<div style="padding: 30px 16px;">-->
+                <!--<van-slider-->
+                        <!--v-model="fellow"-->
+                        <!--active-color="#06BEBD"-->
+                        <!--bar-height="4px"-->
+                        <!--:max="max"-->
+                        <!--:min='min'-->
+                        <!--inactive-color="#A8B6C8">-->
+                    <!--&lt;!&ndash;                    <div slot="button" class="slider-button">{{ value }}</div>&ndash;&gt;-->
+                <!--</van-slider>-->
+            <!--</div>-->
 
-            </div>
             <div style="padding: 30px 16px;">
-                <van-slider
+                <el-slider
                         v-model="fellow"
-                        active-color="#06BEBD"
-                        bar-height="4px"
+                        :step="1"
                         :max="max"
-                        :min='min'
-                        inactive-color="#A8B6C8">
-                    <!--                    <div slot="button" class="slider-button">{{ value }}</div>-->
-                </van-slider>
+                        :min="min"
+                        show-stops>
+                </el-slider>
             </div>
+
+
             <!--            <div v-if="currentChoose.name == '生源地贷款'" class="index-list-div" @click="onShow_bank">-->
             <!--                <div>贷款银行</div>-->
             <!--                <div>{{currentChoose_bank.name || '点击选取'}} ></div>-->

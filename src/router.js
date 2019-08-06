@@ -41,6 +41,11 @@ export default new Router({
             component: () => import('./views/greenPath/greenPath.vue')
         },
         {
+            path: '/greenPath/pdf',
+            name: 'pdf',
+            component: () => import('./views/greenPath/pdf.vue')
+        },
+        {
             path: '/room',
             name: 'room',
             component: () => import('./views/room/room.vue')

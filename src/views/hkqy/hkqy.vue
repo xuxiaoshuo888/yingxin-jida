@@ -29,7 +29,7 @@
             <!--</div>-->
             <div class="btn-contain">
                 <van-button type="info" size="large" class="button-bg" @click="submit">
-                    确认
+                    提交
                 </van-button>
             </div>
         </div>
@@ -72,23 +72,28 @@
                         m.push(`${this.list[i].kindid}:${this.list[i].answer}`)
                     } else {//多选
                         let str = ''
-                        if (this.list.answerList.length===0) {
+                        if (this.list.answerList.length === 0) {
                             continue;
                         }
                         str += this.list.answerList[0].itemid;
                         for (let j = 1; j < this.list.answerList.length; j++) {
-                            str += ","+this.list.answerList[i].itemid
+                            str += "," + this.list.answerList[i].itemid
                         }
                         m.push(`${this.list[i].kindid}: ${str}`)
                     }
                 }
-                this.$ajax.post('/select_kind_api/save', {jsonArray :JSON.stringify(m)})
+                this.$ajax.post('/select_kind_api/save',
+                    {
+                        jsonArray: JSON.stringify(m),
+                        stepId: this.stepId,
+                        planId: this.planId
+                    })
                     .then(res => {
                         console.log(res.data)
-                        if(res.data.errcode == '0'){
+                        if (res.data.errcode == '0') {
                             this.$toast({
-                                type:'success',
-                                message:res.data.errmsg
+                                type: 'success',
+                                message: res.data.errmsg
                             })
                         }
                     })

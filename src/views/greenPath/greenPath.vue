@@ -63,9 +63,14 @@
         </div>
         <div class="info">
             <div>温馨提示</div>
-            <div>（1）助学贷款分为生源地助学贷款和校园地助学贷款，详见《入学须知》。生源地助学贷款为信用贷款，不受名额限制，申请手续简便，放款快，还款方便，推荐优先办理生源地助学贷款。若错过办理生源地助学贷款，可在入学后办理校园地助学贷款（办理时间关注学工处学生资助中心通知）。</div>
-            <div>（2）助学贷款待经办银行放款后，学校财务处将统一进行学费和住宿费的扣缴工作，如有余额，打入学生个人中国银行卡账户。</div>
-            <div>（3）学生申请助学贷款最高金额为8000元/年，若学费和住宿费高于8000元，请学生登录校园统一支付平台（http://pay.cug.edu.cn/xysf/）自助缴纳高出部分，助学贷款仅限于缴纳学费和住宿费，新生还需缴纳代收费（一卡通生活费、体检费等），请自行登录校园统一支付平台缴纳。</div>
+            <!--<div>（1）助学贷款分为生源地助学贷款和校园地助学贷款，详见《入学须知》。生源地助学贷款为信用贷款，不受名额限制，申请手续简便，放款快，还款方便，-->
+            <!--推荐优先办理生源地助学贷款。若错过办理生源地助学贷款，可在入学后办理校园地助学贷款（办理时间关注学工处学生资助中心通知）。-->
+            <!--</div>-->
+            <!--<div>（2）助学贷款待经办银行放款后，学校财务处将统一进行学费和住宿费的扣缴工作，如有余额，打入学生个人中国银行卡账户。</div>-->
+            <!--<div>（3）学生申请助学贷款最高金额为8000元/年，若学费和住宿费高于8000元，请学生登录校园统一支付平台（http://pay.cug.edu.cn/xysf/）自助缴纳高出部分，-->
+            <!--助学贷款仅限于缴纳学费和住宿费，新生还需缴纳代收费（一卡通生活费、体检费等），请自行登录校园统一支付平台缴纳。-->
+            <!--</div>-->
+            <div style="text-decoration: underline;" @click="toPdf">吉林大学新生绿色通道申请审批办法</div>
         </div>
         <div class="btn-contain">
             <van-button type="info" size="large" class="button-bg" @click="save">
@@ -103,7 +108,7 @@
                     {name: '中国银行', id: ''}
                 ],
                 yzm: '回执验证码',
-                je:'',
+                je: '',
                 show: false,//控制缓交方式actionsheet展示与否
                 show_bank: false,//控制银行列表展示与否
                 code: '',//验证码
@@ -154,13 +159,16 @@
             },
             save() {//保存绿色通道信息信息
                 this.$ajax.post('/green_channel_api/save', {
-                    amount:this.je,
-                    bankName:this.bank,
-                    loanCode:this.code,
-                    remark:this.reason
+                    amount: this.je,
+                    bankName: this.bank,
+                    loanCode: this.code,
+                    remark: this.reason
                 }).then(res => {
                     this.$toast(res.data.data)
                 })
+            },
+            toPdf() {
+                this.$router.push('/greenPath/pdf')
             }
         },
         mounted() {
@@ -185,7 +193,7 @@
         text-align: right !important;
     }
 
-    .van-field__body input{
+    .van-field__body input {
         text-align: right !important;
     }
 </style>
