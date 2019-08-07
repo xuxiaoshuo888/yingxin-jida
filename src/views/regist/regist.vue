@@ -20,15 +20,15 @@
                 <div class="right-content">{{fellow}}人</div>
             </div>
             <!--<div style="padding: 30px 16px;">-->
-                <!--<van-slider-->
-                        <!--v-model="fellow"-->
-                        <!--active-color="#06BEBD"-->
-                        <!--bar-height="4px"-->
-                        <!--:max="max"-->
-                        <!--:min='min'-->
-                        <!--inactive-color="#A8B6C8">-->
-                    <!--&lt;!&ndash;                    <div slot="button" class="slider-button">{{ value }}</div>&ndash;&gt;-->
-                <!--</van-slider>-->
+            <!--<van-slider-->
+            <!--v-model="fellow"-->
+            <!--active-color="#06BEBD"-->
+            <!--bar-height="4px"-->
+            <!--:max="max"-->
+            <!--:min='min'-->
+            <!--inactive-color="#A8B6C8">-->
+            <!--&lt;!&ndash;                    <div slot="button" class="slider-button">{{ value }}</div>&ndash;&gt;-->
+            <!--</van-slider>-->
             <!--</div>-->
 
             <div style="padding: 30px 16px;">
@@ -63,9 +63,9 @@
             <!--            </div>-->
         </div>
         <!--<div class="info">-->
-            <!--<div>温馨提示</div>-->
-            <!--<div>1.缴纳学杂费前先开通建设银行网银。</div>-->
-            <!--<div>2.请按照页面显示的步骤先后完成报到。</div>-->
+        <!--<div>温馨提示</div>-->
+        <!--<div>1.缴纳学杂费前先开通建设银行网银。</div>-->
+        <!--<div>2.请按照页面显示的步骤先后完成报到。</div>-->
         <!--</div>-->
         <div class="btn-contain">
             <van-button type="info" size="large" class="button-bg" @click="submit">
@@ -88,7 +88,9 @@
                     title="到达时间"
                     @confirm="confirm_datetime"
                     @change="formatTime"
-            />
+                    :min-date="minDate"
+                    :max-date="maxDate">
+            </van-datetime-picker>
         </van-popup>
         <!--        到达站点-->
         <van-popup v-model="show_station" position="bottom" overlay>
@@ -119,7 +121,7 @@
                 show_way: false,//交通方式
                 ways: [],//交通方式选项列表
                 way: "",//当前选中的交通方式
-                arriveTime: '',//到达时间
+                arriveTime: new Date(),//到达时间
                 show_time: false,
                 stations: [],//到达地点列表
                 station: '',
@@ -127,7 +129,9 @@
                 fellow: 0,//同行人数
                 max: 10,
                 min: 0,
-                title: '抵校登记',
+                title: '接站登记',
+                minDate: new Date(2019, 1, 1, 0, 0),
+                maxDate: new Date(2019, 12, 31, 24, 59),
                 // chooseList: [//缓交方式
                 //     {name: '国家助学贷款'},
                 //     {name: '生源地贷款'},
@@ -219,7 +223,17 @@
                         number: this.fellow,
                         transport: this.way
                     }).then(res => {
-                        this.$toast(res.data.data)
+                        if (res.data.errcode == '0') {
+                            this.$toast({
+                                type: 'success',
+                                message: res.data.errmsg
+                            })
+                        } else {
+                            this.$toast({
+                                type: 'fail',
+                                message: res.data.errmsg
+                            })
+                        }
                     })
                 } else {
                     this.$toast('请完整填写表单！')
@@ -227,9 +241,11 @@
             }
         },
         mounted() {
+            console.log(this.arriveTime);
             this.getInfo()
             this.getWay()
             this.getStation()
+            console.log(this.arriveTime);
         }
     }
 </script>

@@ -164,7 +164,17 @@
                     loanCode: this.code,
                     remark: this.reason
                 }).then(res => {
-                    this.$toast(res.data.data)
+                    if (res.data.errcode == '0') {
+                        this.$toast({
+                            type: 'success',
+                            message: res.data.errmsg
+                        })
+                    } else {
+                        this.$toast({
+                            type: 'fail',
+                            message: res.data.errmsg
+                        })
+                    }
                 })
             },
             toPdf() {

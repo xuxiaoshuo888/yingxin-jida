@@ -96,7 +96,13 @@
 
     .paragraph {
         margin-top: 20px;
-        padding-bottom: 50px;
+        margin-bottom: 50px;
+        padding: 10px;
+        background-color: rgba(238,238,238,0.5);
+        border: 1px solid #bfbfbf;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
     }
 
     .paragraph > div {

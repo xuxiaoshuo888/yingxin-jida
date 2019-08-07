@@ -20,8 +20,15 @@ export default new Vuex.Store({
         },
         setStdInfo(state, data) {
             state.stdInfo = data
-
             Cookies.set('setStdInfo', data)
+        },
+        removeToken(state){
+            state.token = ''
+            Cookies.remove('setToken')
+        },
+        removeStdInfo(state){
+            state.token = ''
+            Cookies.remove('setStdInfo')
         }
     },
     actions: {}

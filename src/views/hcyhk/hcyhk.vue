@@ -1,6 +1,6 @@
 <template>
     <div>
-        <go-back :title="title" :bg="bg" :isDesk="isDesk"></go-back>
+        <go-back :title="title" :bg="bg"></go-back>
         <el-form ref="form" style="padding: 10px;">
             <el-form-item label="始发站">
                 <el-select
@@ -83,7 +83,7 @@
                 }
             },
             getStations2() {
-                this.$ajax.get('/arrive_api/stations').then(res => {
+                this.$ajax.get('/train_card_api/end_station').then(res => {
                     this.loading2 = false
                     this.end = res.data.data
                 })
@@ -95,7 +95,17 @@
                     }).then(res => {
                         this.loading2 = false
                         this.end = res.data.data
-                        this.$toast(res.data.errmsg)
+                        if (res.data.errcode == '0') {
+                            this.$toast({
+                                type: 'success',
+                                message: res.data.errmsg
+                            })
+                        }else{
+                            this.$toast({
+                                type: 'fail',
+                                message: res.data.errmsg
+                            })
+                        }
                     })
                 } else {
                     this.$toast('请填写始发站和终点站!')

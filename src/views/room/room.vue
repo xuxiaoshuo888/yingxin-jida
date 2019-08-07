@@ -6,22 +6,22 @@
                 <div class="title2">
                     <img src="@/assets/img/2.png" alt="">&nbsp;
                     &nbsp;<span class="mid-span">考生号：</span>
-                    <span>{{room.ksh}}</span>
+                    <div>{{room.ksh || '暂无数据'}}</div>
                 </div>
                 <div class="title2">
                     <img src="@/assets/img/2.png" alt="">&nbsp;
                     &nbsp;<span class="mid-span">学号：</span>
-                    <span>{{room.xh}}</span>
+                    <div>{{room.xh || '暂无数据'}}</div>
                 </div>
                 <div class="title2">
                     <img src="@/assets/img/2.png" alt="">&nbsp;
                     &nbsp;<span class="mid-span">姓名：</span>
-                    <span>{{room.xm}}</span>
+                    <div>{{room.xm || '暂无数据'}}</div>
                 </div>
                 <div class="title2">
                     <img src="@/assets/img/2.png" alt="">&nbsp;
                     &nbsp;<span class="mid-span">住宿信息：</span>
-                    <span>{{room.zsxx}}</span>
+                    <div>{{room.zsxx || '暂无数据'}}</div>
                 </div>
             </div>
         </div>
@@ -62,22 +62,7 @@
                 this.$ajax.get('/dorm_api/dorm_info').then(res => {
                     this.room = res.data.data
                 })
-            },
-            // getGongyu() {//公寓信息
-            //     this.$ajax.get('/dorm_api/apartments').then(res => {
-            //         console.log(res.data)
-            //     })
-            // },
-            // getStep() {
-            //     this.$ajax.get('/dorm_api/dorm_info').then(res => {
-            //         console.log(res.data)
-            //     })
-            // },
-            // getStep() {
-            //     this.$ajax.get('/dorm_api/dorm_info').then(res => {
-            //         console.log(res.data)
-            //     })
-            // }
+            }
         },
         mounted() {
             this.getStep()
@@ -99,11 +84,18 @@
     }
 
     .mid-span {
-        display: inline-block;
-        width: 100px;
-        text-align-last:justify;
+        /*display: inline-block;*/
+        /*width: 100px;*/
+        /*text-align-last:justify;*/
     }
-    .roomdiv>div{
+
+    .roomdiv > div {
         margin-bottom: 10px;
+    }
+
+    .roomdiv > div > div {
+        padding-top: 5px;
+        padding-bottom: 0px;
+        text-indent: 28px;
     }
 </style>

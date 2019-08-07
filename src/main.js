@@ -60,6 +60,11 @@ function hasToken() {
 // no redirect whitelist
 // const whiteList = ['/login','/']
 // router.beforeEach((to, from, next) => {
+//     if(hasToken()){//有token，继续跳转
+//
+//     }else{//无token，去login界面
+//
+//     }
 // /*    if (hasToken()) {
 //         //已绑定身份时，跳转到/bind
 //         console.log('hasToken')
@@ -68,9 +73,10 @@ function hasToken() {
 //         console.log(next)
 //         next()
 //     } else {*/
-//         if (whiteList.indexOf(to.path) !== -1) {//在白名单
-//             next()
-//         } /*else {
+//         // if (whiteList.indexOf(to.path) !== -1) {//在白名单
+//         //     next()
+//         // }
+//         /*else {
 //             console.log('dont has token!')
 //             console.log(getCookie('WX_OPEN_ID'))
 //             let openId = getCookie('WX_OPEN_ID');
