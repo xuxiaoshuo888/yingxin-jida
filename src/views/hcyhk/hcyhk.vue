@@ -71,6 +71,13 @@
         },
         components: {goBack},
         methods: {
+            getData() {
+                this.$ajax.get('/train_card_api/find').then(res => {
+                    console.log(res.data.data)
+                    this.start_value = res.data.data.hcz
+                    this.end_value = res.data.data.zdz
+                })
+            },
             getStations(arg) {
                 if (arg.trim() != '') {
                     this.loading1 = true
@@ -100,7 +107,7 @@
                                 type: 'success',
                                 message: res.data.errmsg
                             })
-                        }else{
+                        } else {
                             this.$toast({
                                 type: 'fail',
                                 message: res.data.errmsg
@@ -113,8 +120,8 @@
             }
         },
         mounted() {
-            this.getStations2()
-
+            this.getStations2()//jieshu
+            this.getData()//shuju
         }
     }
 </script>

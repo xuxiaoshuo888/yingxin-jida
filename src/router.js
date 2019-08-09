@@ -16,6 +16,11 @@ export default new Router({
             component: () => import('./views/login/login.vue')
         },
         {
+            path: '/ybpt',
+            name: 'ybpt',
+            component: () => import('./views/login/ybpt.vue')
+        },
+        {
             path: '/notice',
             name: 'notice',
             component: () => import('./views/notice/notice.vue')
@@ -24,6 +29,11 @@ export default new Router({
             path: '/desk',
             name: 'desk',
             component: () => import('./views/desk/desk.vue')
+        },
+        {
+            path: '/desk/qrcode',
+            name: 'qrcode',
+            component: () => import('./views/desk/qrcode.vue')
         },
         {
             path: '/hcyhk',

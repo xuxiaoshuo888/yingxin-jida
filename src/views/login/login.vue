@@ -29,22 +29,18 @@
         </div>
         <div class="">
             <div class="info">
-                <div>温馨提示:</div>
-                <div class="textIndent">
-                    1、用户名为考生号;
-                </div>
-                <div class="textIndent">
-                    2、密码为身份证号后6位，若有"X"，请大写。
-                </div>
+                <div>温馨提示：港澳台学生</div>
+                <div class="textIndent">1、注意括号的输入法 ****123(4) 的密码为 123(4)</div>
+                <div class="textIndent">2、注意字母的大小写 ****789(A) 的密码为 789(A)</div>
             </div>
             <div class="btn-contain">
                 <van-button type="info" size="large" class="button-bg" @click="login">
                     绑定
                 </van-button>
             </div>
-            <!--<div class="bottom-link">-->
-            <!--<router-link to="/search">个人住宿查询</router-link>-->
-            <!--</div>-->
+            <div class="bottom-link">
+                <router-link to="/ybpt">易班平台</router-link>
+            </div>
         </div>
     </div>
 </template>

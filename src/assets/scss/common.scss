@@ -419,6 +419,7 @@ state-icon van-icon van-icon-info {
   font-family: PingFangSC-Medium;
   font-weight: 500;
   color: rgba(50, 59, 69, 1);
+  vertical-align: middle;
 }
 
 /*个人信息中修改轮播图内容区域内边距*/
@@ -477,11 +478,11 @@ input {
 
 .el-tabs__header {
   position: fixed !important;
-  top: 47px;
+  top: 45px;
   left: 0;
   right: 0;
   background-color: white;
-  z-index: 999;
+  z-index: 99;
 }
 
 .el-tabs {

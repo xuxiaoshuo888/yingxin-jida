@@ -63,14 +63,8 @@
         </div>
         <div class="info">
             <div>温馨提示</div>
-            <!--<div>（1）助学贷款分为生源地助学贷款和校园地助学贷款，详见《入学须知》。生源地助学贷款为信用贷款，不受名额限制，申请手续简便，放款快，还款方便，-->
-            <!--推荐优先办理生源地助学贷款。若错过办理生源地助学贷款，可在入学后办理校园地助学贷款（办理时间关注学工处学生资助中心通知）。-->
-            <!--</div>-->
-            <!--<div>（2）助学贷款待经办银行放款后，学校财务处将统一进行学费和住宿费的扣缴工作，如有余额，打入学生个人中国银行卡账户。</div>-->
-            <!--<div>（3）学生申请助学贷款最高金额为8000元/年，若学费和住宿费高于8000元，请学生登录校园统一支付平台（http://pay.cug.edu.cn/xysf/）自助缴纳高出部分，-->
-            <!--助学贷款仅限于缴纳学费和住宿费，新生还需缴纳代收费（一卡通生活费、体检费等），请自行登录校园统一支付平台缴纳。-->
-            <!--</div>-->
-            <div style="text-decoration: underline;" @click="toPdf">吉林大学新生绿色通道申请审批办法</div>
+            <div style="text-decoration: underline;" @click="toPdf('green')">吉林大学新生绿色通道申请审批办法</div>
+            <div style="text-decoration: underline;" @click="toPdf('loan')">吉林大学校园地助学贷款实施办法</div>
         </div>
         <div class="btn-contain">
             <van-button type="info" size="large" class="button-bg" @click="save">
@@ -155,14 +149,24 @@
                 this.$ajax.get('/green_channel_api/lorn').then(res => {
                     this.$toast.clear()
                     this.myInfo = res.data.data[0]
+                    this.je = res.data.data[0].sqje || ''//金额
+                    this.type = res.data.data[0].type//缓交方式
+                    this.code = res.data.data[0].loancode//回执验证码
+                    this.reason = res.data.data[0].remark//原因
+                    this.bank = res.data.data[0].loanyh
                 })
             },
             save() {//保存绿色通道信息信息
+                if(Number(this.je) > 20000){
+                    this.$toast('金额不能大于20000元！')
+                    return
+                }
                 this.$ajax.post('/green_channel_api/save', {
                     amount: this.je,
                     bankName: this.bank,
                     loanCode: this.code,
-                    remark: this.reason
+                    remark: this.reason,
+                    type: this.type
                 }).then(res => {
                     if (res.data.errcode == '0') {
                         this.$toast({
@@ -177,8 +181,13 @@
                     }
                 })
             },
-            toPdf() {
-                this.$router.push('/greenPath/pdf')
+            toPdf(e) {
+                this.$router.push({
+                    path:'/greenPath/pdf',
+                    query:{
+                        fileName:e
+                    }
+                })
             }
         },
         mounted() {

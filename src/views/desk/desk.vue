@@ -6,10 +6,12 @@
                 <div class="name-band">
                     <div class="name">{{xm}}</div>
                     <div class="notice">欢迎你，请完成填写！</div>
+                    <van-button type="primary" size="small" @click="tocode" style="margin-top: 20px;">我的二维码</van-button>
                 </div>
-                <img class="potrait" src="@/assets/img/user.jpg" alt="">
+                <img class="potrait" src="@/assets/img/user1.png" alt="">
             </div>
-            <div class="index-list-div" @click="toDetail(item.stepid)" v-for="(item,index) in planList" :key="index">
+            <div class="index-list-div" @click="toDetail(item.stepid,item.status)" v-for="(item,index) in planList"
+                 :key="index">
                 <div>{{item.stepname}}
                     <!--<van-icon class="state-icon" :name="item.flag ? 'checked' : 'info'"></van-icon>-->
                     <img class="state-icon" v-if="item.status === '1'" src="@/assets/img/right.png" alt="">
@@ -50,6 +52,7 @@
                 bg: 'blue',
                 title: '自助迎新',
                 isDesk: true,
+                ksh: '',
                 list: [
                     // {name: '缴纳学杂费', icon: '@/assets/img/1.png', flag: true, path: '/fees'},
                     // {name: '选宿舍', icon: '@/assets/img/2.png', flag: false, path: '/room'},
@@ -66,10 +69,13 @@
         },
         components: {goBack},
         methods: {
-            toDetail(stepid) {//通过stepid进行跳转
+            toDetail(stepid, status) {//通过stepid进行跳转
                 switch (stepid) {
                     case 'base'://基本信息
-                        this.$router.push('/person');
+                        this.$router.push({
+                            path: '/person',
+                            query: {status: status}
+                        });
                         break;
                     case 'hcyhk'://火车优惠卡
                         this.$router.push('/hcyhk');
@@ -112,6 +118,7 @@
             getHj() {//获取环节信息
                 console.log(this.$store.state.stdInfo)
                 this.xm = this.$store.getters.stdInfo.xm
+                this.ksh = this.$store.getters.stdInfo.ksh
                 let planId = this.$store.getters.stdInfo.planid
                 let studentId = this.$store.getters.stdInfo.studentid
                 this.$ajax.get('/plan_step_api/steps', {
@@ -147,6 +154,14 @@
                             type: 'fail',
                             message: res.data.errmsg
                         })
+                    }
+                })
+            },
+            tocode() {
+                this.$router.push({
+                    path: '/desk/qrcode',
+                    query: {
+                        qrcode: this.ksh
                     }
                 })
             }

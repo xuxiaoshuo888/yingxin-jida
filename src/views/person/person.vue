@@ -54,28 +54,34 @@
             <el-tab-pane label="辅导员信息" name="2">
                 <el-form ref="form" :model="Info" size="mini">
                     <div v-if="Info.headmaster && Info.headmaster.length > 0">
-                        <el-form-item label="辅导员:" v-for="(item,index) in Info.headmaster" :key="index">
-                            <div class="item-content" v-if="item.lx == 'bzr'">{{item.xm}},tel：{{item.tel}}</div>
+                        <el-form-item label="" v-for="(item,index) in Info.headmaster" :key="index">
+                            <div class="item-content" v-if="item.lx == 'bzr'">
+                                <div><van-icon name="manager-o" style="vertical-align: middle;" />  辅导员：{{item.xm}}</div>
+                                <div><van-icon name="phone-o" style="vertical-align: middle;" />  联系电话：{{item.tel}}</div>
+                            </div>
                         </el-form-item>
                     </div>
-                    <div v-else>
-                        <el-form-item label="辅导员:" v-for="(item,index) in Info.headmaster" :key="index">
-                            <div class="item-content" v-if="item.lx == 'bzr'">暂无数据</div>
+                    <div v-else-if="(!Info.headmaster) || (Info.headmaster.length == 0)">
+                        <el-form-item label="辅导员:">
+                            <div class="item-content">暂无数据</div>
                         </el-form-item>
                     </div>
                     <div v-if="Info.volunteer && Info.volunteer.length > 0">
-                        <el-form-item label="志愿者:" v-for="(item,index) in Info.volunteer" :key="index">
-                            <div class="item-content">{{item.xm}},tel：{{item.lxdh}}</div>
+                        <el-form-item label="" v-for="(item,index) in Info.volunteer" :key="index">
+                            <div class="item-content">
+                                <div><van-icon name="manager-o" style="vertical-align: middle;" />  志愿者：{{item.xm}}</div>
+                                <div><van-icon name="phone-o" style="vertical-align: middle;" />  志愿者：{{item.lxdh}}</div>
+                            </div>
                         </el-form-item>
                     </div>
-                    <div v-else>
-                        <el-form-item label="志愿者:" v-for="(item,index) in Info.volunteer" :key="index">
+                    <div v-else-if="(!Info.volunteer) || (Info.volunteer.length == 0)">
+                        <el-form-item label="志愿者:">
                             <div class="item-content">暂无数据</div>
                         </el-form-item>
                     </div>
                 </el-form>
             </el-tab-pane>
-            <el-tab-pane label="学生信息" name="3">
+            <el-tab-pane label="学生信息" name="3" style="height: 1400px;">
                 <el-form ref="form_xsxx" :model="Info" :rules="rule_std" size="mini">
                     <el-form-item label="曾用名">
                         <el-input v-model="Info.cym"></el-input>
@@ -118,16 +124,16 @@
                             ></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="所在校区" prop="">
-                        <el-select v-model="Info.xq" placeholder>
-                            <el-option
-                                    v-for="item in campus"
-                                    :label="item.codeitemname"
-                                    :key="item.codeitemid"
-                                    :value="item.codeitemname"
-                            ></el-option>
-                        </el-select>
-                    </el-form-item>
+                    <!--<el-form-item label="所在校区" prop="">-->
+                        <!--<el-select v-model="Info.xq" placeholder>-->
+                            <!--<el-option-->
+                                    <!--v-for="item in campus"-->
+                                    <!--:label="item.codeitemname"-->
+                                    <!--:key="item.codeitemid"-->
+                                    <!--:value="item.codeitemname"-->
+                            <!--&gt;</el-option>-->
+                        <!--</el-select>-->
+                    <!--</el-form-item>-->
                     <el-form-item label="户口所在地" prop="hkszd">
                         <el-input v-model="Info.hkszd" placeholder="户口簿上相关信息"></el-input>
                     </el-form-item>
@@ -174,11 +180,11 @@
                         <el-input type="text" v-model="Info.fmjfyrywzdwt"></el-input>
                     </el-form-item>
                     <el-form-item label="特长:">
-                        <el-input type="text" v-model="Info.tc"></el-input>
+                        <el-input type="textarea" autosize v-model="Info.tc"></el-input>
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
-            <el-tab-pane label="困难认定信息" name="4">
+            <el-tab-pane label="困难认定信息" name="4" style="height: 1300px;">
                 <el-form ref="form_knrd" :model="knrd" :rules="rule_knrd" size="mini">
                     <el-form-item label="是否贫困家庭" prop="sfpkjt">
                         <el-radio-group v-model="Info.sfpkjt">
@@ -188,7 +194,7 @@
                     </el-form-item>
                     <div v-if="Info.sfpkjt == '是'">
                         <el-form-item label="家庭主要收入来源情况" prop="ztzysrlyqk">
-                            <el-input type="textarea" v-model="knrd.ztzysrlyqk"></el-input>
+                            <el-input type="textarea" autosize v-model="knrd.ztzysrlyqk"></el-input>
                         </el-form-item>
                         <el-form-item label="家庭是否遭受自然灾害" prop="sfsz">
                             <el-radio-group v-model="knrd.sfsz">
@@ -196,22 +202,22 @@
                                 <el-radio label="否"></el-radio>
                             </el-radio-group>
                         </el-form-item>
-                        <el-form-item label="家庭遭受自然灾害情况" prop="szqk">
-                            <el-input type="textarea" v-model="knrd.szqk"></el-input>
+                        <el-form-item v-if="knrd.sfsz == '是'" label="家庭遭受自然灾害情况" prop="szqk">
+                            <el-input type="textarea" autosize v-model="knrd.szqk"></el-input>
                         </el-form-item>
                         <el-form-item label="家庭成员因残疾、年迈而劳动能力弱情况" prop="cjnmldlrqk">
-                            <el-input type="textarea" v-model="knrd.cjnmldlrqk"></el-input>
+                            <el-input type="textarea" autosize v-model="knrd.cjnmldlrqk"></el-input>
                         </el-form-item>
                         <el-form-item label="家庭欠债情况" prop="qzqk">
-                            <el-input type="textarea" v-model="knrd.qzqk"></el-input>
+                            <el-input type="textarea" autosize v-model="knrd.qzqk"></el-input>
                         </el-form-item>
 
 
                         <el-form-item label="学生已获社会资助情况" prop="shzzqk">
-                            <el-input type="textarea" v-model="knrd.shzzqk"></el-input>
+                            <el-input type="textarea" autosize v-model="knrd.shzzqk"></el-input>
                         </el-form-item>
                         <el-form-item label="家庭遭受突发意外情况" prop="tfywqk">
-                            <el-input type="textarea" v-model="knrd.tfywqk"></el-input>
+                            <el-input type="textarea" autosize v-model="knrd.tfywqk"></el-input>
                         </el-form-item>
                         <el-form-item label="是否孤儿" prop="jtlxsfge">
                             <el-radio-group v-model="knrd.jtlxsfge">
@@ -255,7 +261,7 @@
                                 <el-radio label="否"></el-radio>
                             </el-radio-group>
                         </el-form-item>
-                        <el-form-item label="是否其他家庭类型" prop="jtlxqt">
+                        <el-form-item label="其他家庭类型" prop="jtlxqt">
                             <el-radio-group v-model="knrd.jtlxqt">
                                 <el-radio label="是"></el-radio>
                                 <el-radio label="否"></el-radio>
@@ -268,7 +274,7 @@
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item v-if="knrd.sfrxbdczkn == '是'" label="入学报到困难情况">
-                            <el-input type="textarea" v-model="knrd.rxbdczknqk"></el-input>
+                            <el-input type="textarea" autosize v-model="knrd.rxbdczknqk"></el-input>
                         </el-form-item>
                     </div>
                 </el-form>
@@ -276,7 +282,7 @@
             <el-tab-pane label="直系家庭成员" name="5">
                 <div>
                     父母和未结婚的兄弟姐妹
-                    <i class="el-icon-circle-plus" type="primary" @click="addFamily"></i>
+                    <span @click="addFamily"><i class="el-icon-circle-plus" type="primary"></i>点击新增</span>
                 </div>
                 <el-carousel
                         :interval="5000"
@@ -309,12 +315,12 @@
                                 <el-input v-model="item.dw"></el-input>
                             </el-form-item>
                             <el-form-item label="联系电话">
-                                <el-input type="tel" v-model="item.lxdh"></el-input>
+                                <el-input type="number" v-model="item.lxdh"></el-input>
                             </el-form-item>
                             <el-form-item label="职业">
                                 <el-input v-model="item.zy"></el-input>
                             </el-form-item>
-                            <el-form-item label="工资">
+                            <el-form-item label="月工资（元）">
                                 <el-input v-model="item.ysr" type="number"></el-input>
                             </el-form-item>
                         </el-form>
@@ -365,12 +371,12 @@
             <el-tab-pane label="团员信息" name="6">
                 <el-form size="mini" ref="form_tyxx" :model="Info.league" :rules="rule_tyxx">
                     <el-form-item label="是否入团" prop="sfrd">
-                        <el-radio-group v-model="Info.league.sfrd">
-                            <el-radio label="是"></el-radio>
-                            <el-radio label="否"></el-radio>
-                        </el-radio-group>
+                        <el-select v-model="sfrt" @change="change_ty">
+                            <el-option label="是" value="是"></el-option>
+                            <el-option label="否" value="否"></el-option>
+                        </el-select>
                     </el-form-item>
-                    <div v-if="Info.league.sfrd == '是'">
+                    <div v-if="sfrt == '是'">
                         <el-form-item label="入团时间" prop="rdsj">
                             <el-date-picker type="date"
                                             v-model="Info.league.rdsj"
@@ -392,12 +398,16 @@
             <el-tab-pane label="党员信息" name="7">
                 <el-form size="mini" ref="form_dyxx" :model="Info.party" :rules="rule_dyxx">
                     <el-form-item label="是否入党" prop="sfrd">
-                        <el-radio-group v-model="Info.party.sfrd">
-                            <el-radio label="是"></el-radio>
-                            <el-radio label="否"></el-radio>
-                        </el-radio-group>
+                        <!--<el-radio-group v-model="Info.party.sfrd">-->
+                        <!--<el-radio label="是"></el-radio>-->
+                        <!--<el-radio label="否"></el-radio>-->
+                        <!--</el-radio-group>-->
+                        <el-select v-model="sfrd" @change="change_dy">
+                            <el-option label="是" value="是"></el-option>
+                            <el-option label="否" value="否"></el-option>
+                        </el-select>
                     </el-form-item>
-                    <div v-if="Info.party.sfrd == '是'">
+                    <div v-if="sfrd == '是'">
                         <el-form-item label="入党时间" prop="rdsj">
                             <el-date-picker type="date" v-model="Info.party.rdsj"
                                             value-format="yyyy-MM-dd"></el-date-picker>
@@ -445,26 +455,26 @@
             <el-tab-pane label="紧急联系人" name="8">
                 <el-form size="mini" ref="form_jjlxr" :model="Info" :rules="rule_jjlxr">
                     <el-form-item label="姓名" prop="jjxm">
-                        <el-input v-model="Info.jjxm"></el-input>
+                        <el-input type="text" v-model="Info.jjxm"></el-input>
                     </el-form-item>
                     <el-form-item label="电话" prop="jjdh">
-                        <el-input v-model="Info.jjdh"></el-input>
+                        <el-input type="number" v-model="Info.jjdh"></el-input>
                     </el-form-item>
                     <el-form-item label="单位" prop="jjdw">
-                        <el-input v-model="Info.jjdw"></el-input>
+                        <el-input type="text" v-model="Info.jjdw"></el-input>
                     </el-form-item>
                     <el-form-item label="QQ" prop="jjqq">
-                        <el-input v-model="Info.jjqq"></el-input>
+                        <el-input type="number" v-model="Info.jjqq"></el-input>
                     </el-form-item>
                     <el-form-item label="与联系人的关系" prop="jjgx">
-                        <el-input v-model="Info.jjgx"></el-input>
+                        <el-input type="text" v-model="Info.jjgx"></el-input>
                     </el-form-item>
                 </el-form>
             </el-tab-pane>
             <el-tab-pane label="学习工作经历" name="9">
                 <div>
                     学习工作经历
-                    <span><i class="el-icon-circle-plus" type="primary" @click="addgzjy"></i>点击新增</span>
+                    <span @click="addgzjy"><i class="el-icon-circle-plus" type="primary"></i>点击新增</span>
                 </div>
                 <el-carousel
                         :interval="5000"
@@ -533,7 +543,7 @@
                                 <el-input v-model="item.place"></el-input>
                             </el-form-item>
                             <el-form-item label="概述">
-                                <el-input type="textarea" v-model="item.remarks"></el-input>
+                                <el-input type="textarea" autosize v-model="item.remarks"></el-input>
                             </el-form-item>
                         </el-form>
                     </el-carousel-item>
@@ -571,17 +581,17 @@
                                 <el-input v-model="item.place"></el-input>
                             </el-form-item>
                             <el-form-item label="概述">
-                                <el-input type="textarea" v-model="item.remarks"></el-input>
+                                <el-input type="textarea" autosize v-model="item.remarks"></el-input>
                             </el-form-item>
                             <el-form-item label="处分原因">
-                                <el-input type="textarea" v-model="item.reason"></el-input>
+                                <el-input type="textarea" autosize v-model="item.reason"></el-input>
                             </el-form-item>
                         </el-form>
                     </el-carousel-item>
                 </el-carousel>
             </el-tab-pane>
         </el-tabs>
-        <div class="btn-area">
+        <div class="btn-area loaction-bottom" v-if="status === '0'">
             <el-button v-if="activeName != '1'" type="primary" @click="prevStep">上一步</el-button>
             <el-button v-if="activeName != '11'" type="primary" @click="nextStep">下一步</el-button>
             <el-button v-if="activeName == '11'" type="primary" @click="submit">提交</el-button>
@@ -597,9 +607,12 @@
         name: "person",
         data() {
             return {
+                status:'',//当前环节是否完成
                 title: "个人信息",
                 activeName: "1",
                 loop: false, //轮播图是否回环播放
+                sfrt: '否',//是否入团
+                sfrd: '否',//是否入党
                 Info: {
                     tc: "",
                     fmjfyrywzdwt: "",
@@ -620,8 +633,8 @@
                     identification: {//困难认定
                     },
                     relatives: [],
-                    league: {sfrd: '是'},
-                    party: {sfrd: '是'},
+                    league: {},
+                    party: {},
                     resume: [
                         {
                             qsrq: "",
@@ -733,7 +746,7 @@
                 rule_knrd: {//困难认定
                     ztzysrlyqk: [{required: true, message: "必填", trigger: "change"}],
                     sfsz: [{required: true, message: "必填", trigger: "change"}],
-                    szqk: [{required: true, message: "必填", trigger: "change"}],
+                    // szqk: [{required: true, message: "必填", trigger: "change"}],
                     cjnmldlrqk: [{required: true, message: "必填", trigger: "change"}],
                     qzqk: [{required: true, message: "必填", trigger: "change"}],
                     shzzqk: [{required: true, message: "必填", trigger: "change"}],
@@ -780,6 +793,9 @@
             handleClick(tab) {
                 //切换tab,则保存一次
                 this.activeName = tab.name;
+                if(this.status === '1'){//当前环节已完成，则不提交
+                    return
+                }
                 this.save();
             },
             getDetail() {
@@ -789,14 +805,36 @@
                     console.log(res.data.data.league.sfrd)
                     console.log(res.data.data.party)
                     console.log(res.data.data.party.sfrd)
+                    console.log(res.data.data.identification)
                     this.Info = res.data.data;
-                    if (!res.data.data.league.sfrd) {
-                        this.Info.league = {}
-                        this.Info.league.sfrd = '否';
+                    if (res.data.data.identification) {
+                        this.knrd = res.data.data.identification;
+                    } else {
+                        this.Info.identification = this.knrd
                     }
-                    if (!res.data.data.party.sfrd) {
-                        this.Info.party = {}
-                        this.Info.party.sfrd = '否';
+                    if (res.data.data.league === "" || res.data.data.league.sfrd === '否') {//判断是否入团
+                        this.Info.league = {
+                            sfrd: "否",
+                            rdsj: "",
+                            rddd: "",
+                            jsrxm: "",
+                            jsrdw: ""
+                        }
+                        this.sfrt = '否'
+                    } else {
+                        this.sfrt = '是'
+                    }
+                    if (res.data.data.party === "" || res.data.data.party.sfrd === '否') {
+                        this.Info.party = {
+                            sfrd: "否",
+                            rdsj: "",
+                            rddd: "",
+                            jsrxm: "",
+                            jsrdw: ""
+                        }
+                        this.sfrd = '否'
+                    } else {
+                        this.sfrd = '是'
                     }
                     if (res.data.data.family.length == 0) {
                         this.addFamily();
@@ -936,12 +974,34 @@
                 } else {
                     this.Info.identification = {}
                 }
+                console.log(this.Info.party)
+                console.log(this.Info.league)
+                this.Info.party.sfrd = this.sfrd
+                this.Info.league.sfrd = this.sfrt
+                console.log(this.Info)
                 let data = JSON.stringify(this.Info);
-                // this.$ajax
-                //     .post("/student_api/save", {jsonObjectStr: data, finishTag: false})
-                //     .then(res => {
-                //         console.log(res);
-                //     });
+                this.$ajax
+                    .post("/student_api/save", {jsonObjectStr: data, finishTag: false})
+                    .then(res => {
+                        console.log(res);
+                    });
+            },
+            change_dy(e) {//选否置空对象
+                console.log(e)
+                if (e == '否') {//
+                    this.Info.party.rdsj = ""
+                    this.Info.party.rddd = ""
+                    this.Info.party.jsrxm = ""
+                    this.Info.party.jsrdw = ""
+                }
+            },
+            change_ty(e) {
+                if (e == '否') {//
+                    this.Info.league.rdsj = ""
+                    this.Info.league.rddd = ""
+                    this.Info.league.jsrxm = ""
+                    this.Info.league.jsrdw = ""
+                }
             },
             submit() {//总提交按钮
                 //困难认定信息
@@ -1004,6 +1064,7 @@
                         jjlxr = false;
                     }
                 });
+                this.Info.identification = this.knrd
                 console.log(xsxx)
                 console.log(knrd)
                 console.log(tyxx)
@@ -1092,6 +1153,7 @@
             }
         },
         mounted() {
+            this.status = this.$route.query.status;
             this.getDetail();
             this.getOptions();
             window.vue = this;
@@ -1133,7 +1195,7 @@
     }
 
     .el-tabs__content {
-        background-color: #bfbfbf !important;
+        background-color: #fafafa !important;
     }
 
     .chengyuan {
@@ -1144,5 +1206,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .loaction-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 0;
+        background-color: white;
+        border: 1px solid #ebeef5;
+        z-index: 999;
     }
 </style>

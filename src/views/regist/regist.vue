@@ -121,7 +121,7 @@
                 show_way: false,//交通方式
                 ways: [],//交通方式选项列表
                 way: "",//当前选中的交通方式
-                arriveTime: new Date(),//到达时间
+                arriveTime: '',//到达时间
                 show_time: false,
                 stations: [],//到达地点列表
                 station: '',
@@ -130,8 +130,8 @@
                 max: 10,
                 min: 0,
                 title: '接站登记',
-                minDate: new Date(2019, 1, 1, 0, 0),
-                maxDate: new Date(2019, 12, 31, 24, 59),
+                minDate: new Date(2019, 7, 20, 0, 0),
+                maxDate: new Date(2019, 8, 30, 23, 59),
                 // chooseList: [//缓交方式
                 //     {name: '国家助学贷款'},
                 //     {name: '生源地贷款'},

@@ -30,17 +30,17 @@ Vue.prototype.$proxy = process.env.VUE_APP_PROXY;
 //         return false;
 // }
 
-function getCookie(name) {
-    var cookies = document.cookie;
-    var list = cookies.split("; ");// 解析出名/值对列表
-
-    for (var i = 0; i < list.length; i++) {
-        var arr = list[i].split("=");// 解析出名和值
-        if (arr[0] == name)
-            return decodeURIComponent(arr[1]);// 对cookie值解码
-    }
-    return "";
-}
+// function getCookie(name) {
+//     var cookies = document.cookie;
+//     var list = cookies.split("; ");// 解析出名/值对列表
+//
+//     for (var i = 0; i < list.length; i++) {
+//         var arr = list[i].split("=");// 解析出名和值
+//         if (arr[0] == name)
+//             return decodeURIComponent(arr[1]);// 对cookie值解码
+//     }
+//     return "";
+// }
 
 //判断是否有token
 function hasToken() {
@@ -56,7 +56,13 @@ function hasToken() {
     }
     else return false
 }
-
+router.afterEach(() => {
+    // ...
+    window.scrollTo({//每次跳转后都自动定位到顶部
+        top: 0,
+        behavior: "smooth"
+    })
+})
 // no redirect whitelist
 // const whiteList = ['/login','/']
 // router.beforeEach((to, from, next) => {

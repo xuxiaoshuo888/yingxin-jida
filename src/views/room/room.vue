@@ -61,7 +61,13 @@
             getStep() {
                 this.$ajax.get('/dorm_api/dorm_info').then(res => {
                     this.room = res.data.data
+                    if (res.data.data && res.data.data.zsxx) {
+                        this.saveRecord()
+                    }
                 })
+            },
+            saveRecord() {
+                this.$ajax.post('/dorm_api/save_record')
             }
         },
         mounted() {

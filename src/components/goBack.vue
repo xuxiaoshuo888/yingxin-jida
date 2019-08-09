@@ -31,7 +31,7 @@
         background-color: #06BEBD !important;
         color: white !important;
         border-bottom: 1px solid #06BEBD !important;
-
+        border-top: 1px solid #06BEBD !important;
     }
     .bg-blue-sky{
 
