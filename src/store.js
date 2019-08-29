@@ -27,7 +27,7 @@ export default new Vuex.Store({
             Cookies.remove('setToken')
         },
         removeStdInfo(state){
-            state.token = ''
+            state.stdInfo = ''
             Cookies.remove('setStdInfo')
         }
     },

@@ -84,8 +84,10 @@
                     this.$ajax.get('/train_card_api/stations', {
                         params: {name: arg}
                     }).then(res => {
-                        this.loading1 = false
-                        this.start = res.data.data
+                        this.$nextTick(()=>{
+                            this.loading1 = false;
+                            this.start = res.data.data
+                        });
                     })
                 }
             },
